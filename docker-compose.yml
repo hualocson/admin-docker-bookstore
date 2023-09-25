@@ -1,0 +1,23 @@
+version: "3"
+name: "admin-bookstore"
+services:
+  admin-fe:
+    build:
+      context: ../client
+    environment:
+      - PORT=3100
+    links:
+      - admin-be
+
+  admin-be:
+    build:
+      context: ../server
+    env_file:
+      ../server/.env
+    restart: on-failure
+
+  nginx:
+    image: nginx:1.15-alpine
+    depends_on:
+      - admin-fe
+      - admin-be
