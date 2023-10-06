@@ -11,6 +11,9 @@ services:
       - /app/node_modules
     environment:
       - NODE_ENV=development
+    depends_on:
+      - postgres
+      - redis
 
   admin-fe:
     build:
@@ -32,7 +35,16 @@ services:
       POSTGRES_PASSWORD: "postgres-local-password-8888"
     volumes:
       - postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped
 
+  redis:
+    image: redis/redis-stack:latest
+    ports:
+      - "6379:6379"
+      - "8001:8001"
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
 
   nginx:
     build:
@@ -45,3 +57,4 @@ services:
 
 volumes:
   postgres-data:
+  redis-data:
