@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: admin-fe
+    runtime: docker
+    region: singapore
+    branch: dev
+    dockerfilePath: ./Dockerfile.dev
+  # BE
+  - type: web
+    name: admin-be
+    runtime: docker
+    region: singapore
+    branch: dev
+    dockerfilePath: ./Dockerfile.dev
